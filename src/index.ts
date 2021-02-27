@@ -8,12 +8,17 @@ import { appLogger } from './modules/logger'
 const app = new Koa()
 
 // ミドルウェア設定
+import { mwRequestId } from './middlewares/request-id'
+import { mwRequestTrace } from './middlewares/request-trace'
+
+app.use(mwRequestId)
+app.use(mwRequestTrace)
 app.use(async (ctx, next) => {
   ctx.body = "koa app."
 
   await next()
 
-  appLogger.trace(`path=[${ctx.path}]`)
+  ctx.logger.trace(`path=[${ctx.path}]`)
 })
 
 // HTTP/2 でサーバ起動
