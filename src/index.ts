@@ -2,10 +2,11 @@ import Koa from 'koa'
 import http2 from 'http2'
 import fs from 'fs'
 
-import { appLogger } from './modules/logger'
+import { buildLogger } from './modules/logger'
 
 // Koa2 サーバ初期設定
 const app = new Koa()
+const appLogger = buildLogger('APP')
 
 // ミドルウェア設定
 import { mwRequestId } from './middlewares/request-id'
